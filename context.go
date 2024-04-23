@@ -3,6 +3,7 @@ package gormx
 import (
 	"strings"
 
+	"github.com/duke-git/lancet/v2/slice"
 	"github.com/duke-git/lancet/v2/strutil"
 	"gorm.io/gorm"
 )
@@ -16,8 +17,7 @@ func Context(ctx *Contextx, scope ...ScopeType) ScopeType {
 	}
 	ctx.Scope = append(ctx.Scope, scope...)
 	if ctx.Order != "" {
-		ctx.Order = strings.Replace(ctx.Order, "DESC", "desc", -1)
-		ctx.Order = strings.Replace(ctx.Order, "ASC", "asc", -1)
+		by := []string{"DESC", "desc", "ASC", "asc"}
 		orders := strings.Split(ctx.Order, ",")
 		var newOrder string
 		for _, v := range orders {
@@ -26,11 +26,18 @@ func Context(ctx *Contextx, scope ...ScopeType) ScopeType {
 				if len(orderArr) == 2 {
 					ad := strings.Split(orderArr[1], " ")
 					if len(ad) == 2 {
-						newOrder += "JSON_EXTRACT(" + orderArr[0] + ", '$." + ad[0] + "') " + ad[1] + ","
+						if slice.Contain(by, ad[1]) {
+							newOrder += "JSON_EXTRACT(" + orderArr[0] + ", '$." + ad[0] + "') " + ad[1] + ","
+						}
 					}
 				}
 			} else {
-				newOrder += strutil.SnakeCase(v) + ","
+				ad := strings.Split(v, " ")
+				if len(ad) == 2 {
+					if slice.Contain(by, ad[1]) {
+						newOrder += strutil.SnakeCase(ad[0]) + " " + ad[1] + ","
+					}
+				}
 			}
 		}
 		ctx.Order = strings.Trim(newOrder, ",")
