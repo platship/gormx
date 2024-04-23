@@ -3,7 +3,6 @@ package gormx
 import (
 	"time"
 
-	"github.com/duke-git/lancet/v2/strutil"
 	"gorm.io/gorm"
 	"gorm.io/hints"
 )
@@ -35,7 +34,7 @@ func Or(val bool, wheres string) ScopeType {
 func Select(val string) ScopeType {
 	return func(db *gorm.DB) *gorm.DB {
 		if val != "" {
-			db.Select(strutil.SnakeCase(val))
+			db.Select(CamelToSnake(val))
 		}
 		return db
 	}

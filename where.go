@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/duke-git/lancet/v2/slice"
-	"github.com/duke-git/lancet/v2/strutil"
 
 	"gorm.io/gorm"
 )
@@ -13,7 +12,7 @@ import (
 func Where(w *WhereOne, table string) ScopeType {
 	return func(db *gorm.DB) *gorm.DB {
 		reg, _ := regexp.Compile("[^a-zA-Z0-9_]+")
-		w.Field = strutil.SnakeCase(reg.ReplaceAllString(w.Field, ""))
+		w.Field = CamelToSnake(reg.ReplaceAllString(w.Field, ""))
 		if w.Field == "" {
 			return db
 		}

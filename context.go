@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/duke-git/lancet/v2/slice"
-	"github.com/duke-git/lancet/v2/strutil"
 	"gorm.io/gorm"
 )
 
@@ -35,7 +34,7 @@ func Context(ctx *Contextx, scope ...ScopeType) ScopeType {
 				ad := strings.Split(v, " ")
 				if len(ad) == 2 {
 					if slice.Contain(by, ad[1]) {
-						newOrder += strutil.SnakeCase(ad[0]) + " " + ad[1] + ","
+						newOrder += CamelToSnake(ad[0]) + " " + ad[1] + ","
 					}
 				}
 			}
