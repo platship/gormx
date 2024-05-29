@@ -67,6 +67,11 @@ func Where(w *WhereOne, table string) ScopeType {
 			return db.Where(w.Field+" BETWEEN ? AND ?", timeArr[0], timeArr[1])
 		case WhereRuleNBtw:
 			return db.Where(w.Field+" IN ?", slice.IntSlice(strings.Split(w.Val, ",")))
+		case WhereRuleJArr:
+			return db.Where("JSON_CONTAINS(`" + w.Field + "`,JSON_ARRAY(" + w.Val + "))")
+		case WhereRuleJObj:
+			nameVal := strings.Split(w.Val, ",")
+			return db.Where("JSON_CONTAINS(`" + w.Field + "`,JSON_OBJECT('" + nameVal[0] + "','" + nameVal[1] + "'))")
 		default:
 			return db.Where(w.Field+" LIKE ?", "%"+w.Val+"%")
 		}

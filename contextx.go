@@ -72,4 +72,6 @@ const (
 	WhereRuleLikeAf  = "likeAf"  // 包含后
 	WhereRuleBtw     = "btw"     // 区间
 	WhereRuleNBtw    = "nBtw"    // 不在区间
+	WhereRuleJArr    = "jArr"    // JsonArr
+	WhereRuleJObj    = "jObj"    // JsonArr
 )
