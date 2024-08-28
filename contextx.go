@@ -22,6 +22,7 @@ type Wherex struct {
 	Wheres     []*WhereOne   `json:"wheres"`     // 一般查询条件 wheres 数组对象
 	Joins      []*Preloadx   `json:"joins"`      // 关联查询 数组嵌套对象数据
 	Table      string
+	Select     string `json:"select"` // 字段
 }
 
 type Preloadx struct {
