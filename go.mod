@@ -1,4 +1,4 @@
-module github.com/rehok/gormx
+module github.com/platship/gormx
 
 go 1.20
 

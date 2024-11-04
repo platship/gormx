@@ -42,8 +42,12 @@ func Where(w *WhereOne, table string) ScopeType {
 			return db.Where(w.Field+"<= ?", w.Val)
 		case WhereRuleIn:
 			return db.Where(w.Field+" IN ?", strings.Split(w.Val, ","))
+		case WhereRuleNIn:
+			return db.Where(w.Field+" NOT IN ?", strings.Split(w.Val, ","))
 		case WhereRuleInInt:
 			return db.Where(w.Field+" IN ?", slice.IntSlice(strings.Split(w.Val, ",")))
+		case WhereRuleNInInt:
+			return db.Where(w.Field+" NOT IN ?", slice.IntSlice(strings.Split(w.Val, ",")))
 		case WhereRuleLikes:
 			vals := strings.Split(w.Val, ",")
 			for _, v := range vals {

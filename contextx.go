@@ -28,6 +28,7 @@ type Wherex struct {
 type Preloadx struct {
 	Table  string      `json:"table"`
 	Wheres []*WhereOne `json:"wheres"` // 查询条件wheres
+	Order  string      `json:"order"`  // 排序 如 id DESC降序 ASC升序
 }
 
 func NewContextx(limit int, order string) *Contextx {

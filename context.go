@@ -101,7 +101,7 @@ func wherePreload(ctx *Contextx) ScopeType {
 		}
 		if ctx.Preloads != nil {
 			for _, preload := range ctx.Preloads {
-				db.Preload(preload.Table, Preload(preload.Wheres != nil, preload.Wheres))
+				db.Preload(preload.Table, Preload(preload.Wheres != nil, preload.Wheres, preload.Order))
 			}
 		}
 		var condition string
@@ -130,7 +130,7 @@ func base(ctx *Contextx) ScopeType {
 		}
 		if ctx.Preloads != nil {
 			for _, preload := range ctx.Preloads {
-				db.Preload(preload.Table, Preload(preload.Wheres != nil, preload.Wheres))
+				db.Preload(preload.Table, Preload(preload.Wheres != nil, preload.Wheres, preload.Order))
 			}
 		}
 		var condition string
